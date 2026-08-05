@@ -92,7 +92,7 @@ export function Hero() {
   const s = slides[i];
 
   return (
-    <section className="relative h-[82vh] min-h-[600px] w-full overflow-hidden bg-honda-dark md:h-[90vh] lg:h-[92vh]">
+    <section className="relative min-h-[max(600px,82vh)] w-full flex flex-col overflow-hidden bg-honda-dark md:min-h-[max(600px,90vh)] lg:min-h-[max(600px,92vh)]">
       <AnimatePresence mode="sync">
         <motion.img
           key={i}
@@ -109,7 +109,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
 
-      <div className="relative mx-auto flex h-full w-full max-w-[1750px] flex-col justify-end px-6 pb-16 md:pb-24 xl:px-12">
+      <div className="relative mx-auto flex h-full w-full flex-1 max-w-[1750px] flex-col justify-end px-6 pt-32 pb-16 md:pb-24 xl:px-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={i}
