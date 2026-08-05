@@ -109,7 +109,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
 
-      <div className="relative mx-auto flex h-full w-full max-w-[1750px] flex-col justify-end px-6 pb-16 md:pb-24 xl:px-12">
+<div className="relative mx-auto flex h-full w-full max-w-[1750px] flex-col justify-end px-6 pb-16 pt-28 md:pb-24 md:pt-32 xl:px-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={i}

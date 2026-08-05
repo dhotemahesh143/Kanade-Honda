@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Search, MapPin, Menu, X, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import logo from "@/assets/kanade-honda-logo.png";
@@ -16,6 +16,8 @@ const links = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -24,41 +26,50 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+// Transparent overlay only on the home hero when at the very top
+  const overlay = isHome && !scrolled;
+  const headerBg = overlay
+    ? "bg-gradient-to-b from-black/70 via-black/30 to-transparent border-0"
+    : scrolled
+      ? "glass-strong shadow-card"
+      : "border-b border-border bg-background";
+  const headerPos = overlay ? "fixed top-0" : "sticky top-0";
+
   return (
     <>
-      {/* Utility strip */}
-      <div className="hidden border-b border-border bg-surface text-xs text-muted-foreground md:block">
-        <div className="mx-auto flex w-full max-w-[1750px] items-center justify-between px-6 py-2 xl:px-12">
-          <span className="font-medium tracking-wide flex items-center gap-2">
-            <span className="font-bold text-foreground">Kanade Honda (Geet Motors)</span>
-            <span>·</span>
-            <span className="text-honda-red font-semibold">Honda 2 Wheeler Authorized Dealer</span>
-            <span>·</span>
-            <span>Sales, service, spares & genuine accessories</span>
-          </span>
-          <div className="flex items-center gap-6 font-medium">
-            <a
-              href={siteConfig.mapsUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 transition hover:text-foreground"
-            >
-              <MapPin className="size-4 text-honda-red" /> Dealer Locator
-            </a>
-            <a href={siteConfig.phoneHref} className="transition hover:text-foreground">
-              {siteConfig.phone}
-            </a>
-            <a href="/#emi" className="transition hover:text-foreground">
-              EMI Calculator
-            </a>
+      {/* Utility strip — hidden while transparent over the hero */}
+      {!overlay && (
+        <div className="hidden border-b border-border bg-surface text-xs text-muted-foreground md:block">
+          <div className="mx-auto flex w-full max-w-[1750px] items-center justify-between px-6 py-2 xl:px-12">
+            <span className="font-medium tracking-wide flex items-center gap-2">
+              <span className="font-bold text-foreground">Kanade Honda (Geet Motors)</span>
+              <span>·</span>
+              <span className="text-honda-red font-semibold">Honda 2 Wheeler Authorized Dealer</span>
+              <span>·</span>
+              <span>Sales, service, spares & genuine accessories</span>
+            </span>
+            <div className="flex items-center gap-6 font-medium">
+              <a
+                href={siteConfig.mapsUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 transition hover:text-foreground"
+              >
+                <MapPin className="size-4 text-honda-red" /> Dealer Locator
+              </a>
+              <a href={siteConfig.phoneHref} className="transition hover:text-foreground">
+                {siteConfig.phone}
+              </a>
+              <a href="/#emi" className="transition hover:text-foreground">
+                EMI Calculator
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          scrolled ? "glass-strong shadow-card" : "border-b border-border bg-background"
-        }`}
+<header
+        className={`${headerPos} z-50 w-full transition-all duration-300 ${headerBg}`}
       >
         <div className="mx-auto flex w-full max-w-[1750px] items-center gap-8 px-6 py-2.5 xl:px-12">
           <Link to="/" className="flex shrink-0 items-center gap-3 py-0.5">
@@ -68,7 +79,11 @@ export function Nav() {
               className="h-9 w-auto object-contain sm:h-11 md:h-12 transition-transform duration-300 hover:scale-105"
             />
             <span className="flex flex-col leading-none">
-              <span className="font-display text-base font-black tracking-tight text-foreground sm:text-lg md:text-xl">
+              <span
+                className={`font-display text-base font-black tracking-tight transition-colors sm:text-lg md:text-xl ${
+                  overlay ? "text-white" : "text-foreground"
+                }`}
+              >
                 KANADE HONDA
               </span>
               <span className="mt-1 text-[9px] font-bold tracking-[0.18em] text-honda-red sm:text-[10px] uppercase">
@@ -82,7 +97,9 @@ export function Nav() {
               <a
                 key={l.label}
                 href={l.href}
-                className="group relative px-4 py-3 text-sm font-bold uppercase tracking-wider text-foreground/80 transition hover:text-foreground xl:px-5"
+                className={`group relative px-4 py-3 text-sm font-bold uppercase tracking-wider transition hover:text-foreground xl:px-5 ${
+                  overlay ? "text-white/90 hover:text-white" : "text-foreground/80 hover:text-foreground"
+                }`}
               >
                 {l.label}
                 <span className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 bg-honda-red transition-transform duration-300 group-hover:scale-x-100" />
@@ -93,7 +110,11 @@ export function Nav() {
           <div className="ml-auto flex items-center gap-3 lg:ml-0">
             <button
               aria-label="Search"
-              className="grid size-10 place-items-center rounded-full text-foreground/80 transition hover:bg-secondary hover:text-foreground"
+              className={`grid size-10 place-items-center rounded-full transition ${
+                overlay
+                  ? "text-white hover:bg-white/15"
+                  : "text-foreground/80 hover:bg-secondary hover:text-foreground"
+              }`}
             >
               <Search className="size-5" />
             </button>
@@ -108,7 +129,9 @@ export function Nav() {
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
-              className="grid size-10 place-items-center rounded-full text-foreground transition hover:bg-secondary lg:hidden"
+              className={`grid size-10 place-items-center rounded-full transition ${
+                overlay ? "text-white hover:bg-white/15" : "text-foreground hover:bg-secondary"
+              } lg:hidden`}
             >
               {open ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
