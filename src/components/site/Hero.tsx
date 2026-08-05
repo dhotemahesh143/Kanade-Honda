@@ -125,7 +125,7 @@ export function Hero() {
                 {s.kicker}
               </span>
             </div>
-            <h1 className="font-display text-4xl font-black leading-[1.02] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+            <h1 className="font-display text-4xl font-black leading-[1.02] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
               {s.title}
             </h1>
             <p className="mt-6 max-w-xl text-lg text-white/80 md:text-xl leading-relaxed">
