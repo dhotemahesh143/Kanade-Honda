@@ -96,6 +96,10 @@ export function EMI() {
                 Apply for finance
               </a>
             </div>
+            <p className="mt-5 text-center text-[11px] leading-relaxed text-muted-foreground">
+              * EMI shown is an estimate. Actual ex-showroom price, interest rate and on-road costs
+              may vary according to market conditions and lender policies.
+            </p>
           </div>
         </div>
       </div>

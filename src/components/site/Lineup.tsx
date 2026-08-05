@@ -91,6 +91,12 @@ export function Lineup() {
             </motion.article>
           ))}
         </div>
+
+        <p className="mt-10 border-t border-border pt-6 text-center text-xs text-muted-foreground">
+          * Prices shown are ex-showroom and starting at, inclusive of applicable taxes. They may
+          vary according to market conditions and location. Please contact the showroom for the
+          latest on-road pricing.
+        </p>
       </div>
     </section>
   );

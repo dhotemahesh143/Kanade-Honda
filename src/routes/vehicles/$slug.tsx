@@ -106,6 +106,12 @@ function VehicleDetail() {
               </div>
             </div>
 
+            <p className="mt-4 text-xs text-muted-foreground">
+              * Price shown is ex-showroom starting at, inclusive of applicable taxes. It may vary
+              according to market conditions and location. Please contact the showroom for the
+              latest on-road pricing.
+            </p>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={testRideLink(vehicle.name)}
